@@ -116,6 +116,28 @@
         });
       };
       document.body.appendChild(script);
+      
+      var previousOrientation = window.orientation;
+      var checkOrientation = function(){
+          if(window.orientation !== previousOrientation){
+              previousOrientation = window.orientation;
+              switch(previousOrientation)
+              {
+                case -90:
+                case 90:
+                  canvas.style.width = window.innerWidth*80/100 + 'px';
+                  //alert('landscape');
+                  break; 
+                default:
+                  canvas.style.width = window.innerWidth*90/100 + 'px';
+                  //alert('portrait');
+                  break; 
+              }
+              
+          }
+      };
+
+      window.addEventListener("resize", checkOrientation, false);
     </script>
   </body>
 </html>
