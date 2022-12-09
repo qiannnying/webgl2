@@ -9,6 +9,7 @@
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
+      <button id="unity-fullscreen-button" onclick="toggleFullscreen()"></button>
       <canvas id="unity-canvas" width=1280 height=720></canvas>
       <div id="unity-loading-bar">
         <div id="unity-logo"></div>
@@ -31,6 +32,23 @@
       var fullscreenButton = document.querySelector("#unity-fullscreen-button");
       var warningBanner = document.querySelector("#unity-warning");
 
+      
+      function isFullscreen()
+      {
+        return document.fullscreenElement !== null && document.fullscreenElement
+          || document.webkitFullscreenElement !== null && document.webkitFullscreenElement
+          || document.msFullscreenElement !== null && document.msFullscreenElement;
+      }
+      
+      function rebuildFullscreenGUI()
+      {
+        if (isFullscreen()) {
+          document.getElementById("unity-fullscreen-button").style.backgroundImage="url('TemplateData/fullscreen-button-in.png')";
+        }
+        else {
+          document.getElementById("unity-fullscreen-button").style.backgroundImage="url('TemplateData/fullscreen-button-out.png')";
+        }
+      }
       // Shows a temporary message banner/ribbon for a few seconds, or
       // a permanent error message on top of the canvas if type=='error'.
       // If type=='warning', a yellow highlight color is used.
@@ -55,6 +73,32 @@
         updateBannerVisibility();
       }
 
+      function toggleFullscreen() {
+         if (isFullscreen()) {
+            if (document.exitFullscreen) {
+              document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+              document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) {
+              document.msExitFullscreen();
+            } else {
+              alert("Full screen is not supported by this browser.");
+            }
+         }
+         else {
+           var element = document.getElementById("unity-container");
+            if (element.requestFullscreen) {
+              element.requestFullscreen();
+            } else if (element.webkitRequestFullscreen) {
+              element.webkitRequestFullscreen();
+            } else if (element.msRequestFullscreen) {
+              element.msRequestFullscreen();
+            } else {
+              alert("Full screen is not supported by this browser.");
+            }
+         }
+      }
+      
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/webgl3.loader.js";
       var config = {
@@ -117,7 +161,7 @@
         });
       };
       document.body.appendChild(script);
-
+      document.onfullscreenchange = rebuildFullscreenGUI;
       /*screen.orientation.addEventListener("change", function(e) {
         if(window.matchMedia("(orientation: portrait)")){
           canvas.style.width = window.innerWidth*90/100 + 'px';
