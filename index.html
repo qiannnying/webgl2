@@ -166,6 +166,31 @@
       document.body.appendChild(script);
       
       document.onfullscreenchange = rebuildFullscreenGUI;
+      
+      var previousOrientation = window.orientation;
+      var checkOrientation = function(){
+          if(window.orientation !== previousOrientation){
+              previousOrientation = window.orientation;
+              switch(previousOrientation)
+              {
+                case -90:
+                case 90:
+                  //canvas.style.width = window.innerWidth*80/100 + 'px';
+                  var mobilecontainer = document.getElementById("unity-container.unity-mobile").style.color = "blue";
+                  mobilecontainer.style.height = "100%";
+                  mobilecontainer.style.width = "auto";
+                  //alert('landscape');
+                  break; 
+                default:
+                  //canvas.style.width = container.clientWidth*90/100 + 'px';
+                  //canvas.style.width = window.innerWidth*90/100 + 'px';
+                  //alert('portrait');
+                  break; 
+              }
+              
+          }
+      };
+      window.addEventListener("resize", checkOrientation, false);
     </script>
   </body>
 </html>
