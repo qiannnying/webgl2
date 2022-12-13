@@ -33,22 +33,7 @@
       var warningBanner = document.querySelector("#unity-warning");
 
       
-      function isFullscreen()
-      {
-        return document.fullscreenElement !== null && document.fullscreenElement
-          || document.webkitFullscreenElement !== null && document.webkitFullscreenElement
-          || document.msFullscreenElement !== null && document.msFullscreenElement;
-      }
       
-      function rebuildFullscreenGUI()
-      {
-        if (isFullscreen()) {
-          document.getElementById("unity-fullscreen-button").style.backgroundImage="url('TemplateData/fullscreen-button-in.png')";
-        }
-        else {
-          document.getElementById("unity-fullscreen-button").style.backgroundImage="url('TemplateData/fullscreen-button-out.png')";
-        }
-      }
       // Shows a temporary message banner/ribbon for a few seconds, or
       // a permanent error message on top of the canvas if type=='error'.
       // If type=='warning', a yellow highlight color is used.
@@ -86,35 +71,7 @@
         showBanner: unityShowBanner,
       };
       
-      function toggleFullscreen() {
-         if (isFullscreen()) {
-            if (document.exitFullscreen) {
-              document.exitFullscreen();
-            } else if (document.webkitExitFullscreen) {
-              document.webkitExitFullscreen();
-            } else if (document.msExitFullscreen) {
-              document.msExitFullscreen();
-            } else {
-              alert("Full screen is not supported by this browser.");
-            }
-         }
-         else {
-           var element = document.getElementById("unity-container");
-            if (element.requestFullscreen) {
-              element.requestFullscreen();
-            } else if (element.webkitRequestFullscreen) {
-              element.webkitRequestFullscreen();
-            } else if (element.msRequestFullscreen) {
-              element.msRequestFullscreen();
-            } else {
-              alert("Full screen is not supported by this browser.");
-            }
-         }
-      }
-
-      function confirmUnload(event) {
-        return confirm("All unsaved progress will be lost.");
-      }
+     
       
       // By default Unity keeps WebGL canvas render target size matched with
       // the DOM size of the canvas element (scaled by window.devicePixelRatio)
