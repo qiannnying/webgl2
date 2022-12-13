@@ -10,7 +10,7 @@
   <body>
     <div id="unity-container" class="unity-desktop">
       <canvas id="unity-canvas" width=1280 height=720></canvas>
-<!--       <button id="unity-fullscreen-button" onclick="toggleFullscreen()"></button> -->
+      <button id="unity-fullscreen-button" onclick="toggleFullscreen()"></button> 
       <div id="unity-loading-bar">
         <div id="unity-logo"></div>
         <div id="unity-progress-bar-empty">
@@ -157,9 +157,9 @@
           progressBarFull.style.width = 100 * progress + "%";
         }).then((unityInstance) => {
           loadingBar.style.display = "none";
-          fullscreenButton.onclick = () => {
+          /*fullscreenButton.onclick = () => {
             toggleFullscreen();
-          };
+          };*/
         }).catch((message) => {
           alert(message);
         });
